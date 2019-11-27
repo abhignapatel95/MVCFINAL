@@ -1,0 +1,134 @@
+﻿@model MVCFINAL.Models.user
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="form-horizontal">
+            @Html.HiddenFor(m => m.ID)
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Firstname, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Address, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label>Hobbies:</label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="Hobbies" value="cricket" />cricket
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="Hobbies" value="vollyball" />vollyball
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="Hobbies" value="hockey" />hockey
+                        </label>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Gender, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        Male:  @Html.RadioButtonFor(m => m.Gender, "Male")
+                        Female:@Html.RadioButtonFor(m => m.Gender, "Female")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Designation, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("designation",new List<SelectListItem>
+                   {
+                       new SelectListItem{Text="Senior Developer",Value="Senior Developer"},
+                       new SelectListItem{Text="Junior Developer",Value="Junior Developer"},
+                       new SelectListItem{Text="Project Manager",Value="Project Manager"},
+                       new SelectListItem{Text="Team Leader",Value="Team Leader"},
+                   }, "select Designation",new {@class="form-control"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Mobile, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Dob, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Dob, new { @class = "form-control", placeholder = "dd/mm/yyyy" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserImage, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserImage, new { @class = "form-control-file", type = "file",@ID= "imgInp", onchange = "readURL(this);" })
+                        <img src="" id="blah" height="100" width="100" style="display:none"/>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="submit" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#Dob').datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true
+            }).on('dp.change', function (e) {
+                $(this).data('DateTimePicker').hide();
+
+            });
+        });
+        function readURL(input) {
+            $("#blah").css("display", "block");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+
+        });
+    </script>
+
+
+
+}
+
